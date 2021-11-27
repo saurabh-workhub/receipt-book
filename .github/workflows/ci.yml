@@ -57,6 +57,6 @@ jobs:
         git config --global user.name "github-actions"
         pushd site 
         git add . 
-        git commit -m "jekyll build from Action ${GITHUB_SHA}" 
+        git commit -m "npm build from Action ${GITHUB_SHA}" 
         git push origin main
         popd
