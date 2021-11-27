@@ -68,7 +68,7 @@ const PrintService = {
       cmds += newLine + newLine;
       cmds += '11/03/13  19:53:17';
 
-      cpj.printerCommands = "\x1B C \x00 5";
+      cpj.printerCommands = cmds;
       //Send print job to printer!
       cpj.sendToClient();
     }
