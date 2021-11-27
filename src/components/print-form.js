@@ -73,7 +73,7 @@ const PrintForm = () => {
           </Typography>
         </div>
         <form onSubmit={formik.handleSubmit}>
-          <Paper style={{ padding: 16 }}>
+          <Paper style={{ padding: 14 }}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <TextField id="tokenNumber" name="tokenNumber" label="Token #" value={formik.values.tokenNumber} onChange={formik.handleChange} fullWidth />
