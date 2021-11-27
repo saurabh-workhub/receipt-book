@@ -7,7 +7,7 @@ import AuthProvider from './auth/auth-provider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter basename={window.location.pathname}>
+    <BrowserRouter basename={`/${process.env.PUBLIC_URL}`}>
       <AuthProvider>
         <App />
       </AuthProvider>
