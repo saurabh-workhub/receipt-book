@@ -8,13 +8,14 @@ const AuthProvider = ({ children }) => {
   const clientId = process.env.REACT_APP_APP_CLIENT_ID;
 
   const onRedirectCallback = (appState) => {
-    history.push(appState?.returnTo || window.location.pathname);
+    history.push("home");
   };
 
   return (
     <Auth0Provider
       domain={domain}
       clientId={clientId}
+      redirectUri={`${process.env.REACT_APP_LOGIN_URL}/home`}
       onRedirectCallback={onRedirectCallback}
     >
       {children}
