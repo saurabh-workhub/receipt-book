@@ -17,9 +17,9 @@ function App() {
   return (
     <Switch>
       <Route path="/" exact component={Login} />
-      <ProtectedRoute path="/receipt-book-site/home" component={Home} />
-      <ProtectedRoute path="/receipt-book-site/account" component={Account} />
-      <ProtectedRoute path="/receipt-book-site/logout" component={Logout} />
+      <ProtectedRoute path="/home" component={Home} />
+      <ProtectedRoute path="/account" component={Account} />
+      <ProtectedRoute path="/logout" component={Logout} />
     </Switch>
   )
 }
