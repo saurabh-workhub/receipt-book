@@ -1,0 +1,64 @@
+name: Build & Publish
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with: 
+        path: code
+
+    - name: Checkout site
+      uses: actions/checkout@v2
+      with: 
+        token: ${{ secrets.PUBLISH }}
+        repository: receipt-book-site
+        ref: main 
+        path: site
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+      with: 
+        path: code
+
+    - name: Build
+      run: npm run build
+      with:  
+        path: code
+
+    - name: Clean website
+      run: |
+        pushd site
+        git rm -rf .
+        popd
+
+    - name: Copy site
+      run: |
+        pushd site
+        cp -rvf ../code/build/* . 
+        popd
+        ls -la site/ 
+        
+    - name: Publish
+      run: |
+        git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git config --global user.name "github-actions"
+        pushd site 
+        git add . 
+        git commit -m "jekyll build from Action ${GITHUB_SHA}" 
+        git push origin main
+        popd
