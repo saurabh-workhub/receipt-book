@@ -31,11 +31,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install dependencies
-      run: npm install
+      run: yarn install
       working-directory: code
 
     - name: Build
-      run: npm run build
+      run: yarn build
       working-directory: code
 
     - name: Clean website
