@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Drawer, FormControl, FormControlLabel, FormLabel, Input, InputAdornment, InputLabel, makeStyles, Paper, Grid, Radio, RadioGroup, TextField } from "@material-ui/core";
+import { Button, Drawer, FormControl, FormControlLabel, FormLabel, Input, InputAdornment, InputLabel, makeStyles, Paper, Grid, Radio, RadioGroup, TextField, Typography } from "@material-ui/core";
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -66,7 +66,12 @@ const PrintForm = () => {
   return (
     <div>
       <React.Fragment>
-        <Button variant="outlined" onClick={() => setDrawer(true)}>Setup Printer</Button>
+        <div style={{ padding: 10 }}>
+          <Button variant="outlined" onClick={() => setDrawer(true)}>Setup Printer</Button>
+          <Typography variant="h6" gutterBottom component="div">
+            Default Printer: {defaultPrinter}
+          </Typography>
+        </div>
         <form onSubmit={formik.handleSubmit}>
           <Paper style={{ padding: 16 }}>
             <Grid container spacing={3}>
