@@ -32,13 +32,11 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-      with: 
-        working-directory: code
+      working-directory: code
 
     - name: Build
       run: npm run build
-      with:  
-        working-directory: code
+      working-directory: code
 
     - name: Clean website
       run: |
