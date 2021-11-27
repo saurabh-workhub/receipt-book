@@ -6,7 +6,7 @@ const Login = () => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   useEffect(() => {
-    isAuthenticated ? <Redirect to='/home' /> : loginWithRedirect({redirectUri: `http://${window.location.hostname}:3000/home`})
+    isAuthenticated ? <Redirect to='/home' /> : loginWithRedirect({redirectUri: `${process.env.REACT_APP_LOGIN_URL}/home`})
   })
 
   return null;
