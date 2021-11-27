@@ -2,16 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import AuthProvider from './auth/auth-provider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <HashRouter basename={window.location.pathname}>
+    <BrowserRouter basename={window.location.pathname}>
       <AuthProvider>
         <App />
       </AuthProvider>
-    </HashRouter>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
