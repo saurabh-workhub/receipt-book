@@ -33,12 +33,12 @@ jobs:
     - name: Install dependencies
       run: npm install
       with: 
-        path: code
+        working-directory: code
 
     - name: Build
       run: npm run build
       with:  
-        path: code
+        working-directory: code
 
     - name: Clean website
       run: |
