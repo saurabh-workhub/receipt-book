@@ -1,24 +1,14 @@
-import React, { useState } from "react";
-import { Button, Drawer, FormControl, FormControlLabel, FormLabel, Input, InputAdornment, InputLabel, makeStyles, Paper, Grid, Radio, RadioGroup, TextField, Typography } from "@material-ui/core";
+import React from "react";
+import { Button, FormControl, FormControlLabel, FormLabel, Input, InputAdornment, InputLabel, Paper, Grid, Radio, RadioGroup, TextField } from "@material-ui/core";
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import Printer from "./printer";
-import usePrinter from "../services/use-Printer";
 import PrintService from "../services/print-service";
+import { usePrinting } from "../services/print-context";
 
-const useStyles = makeStyles(() => ({
-  drawerPaper: {
-    width: "30%"
-  }
-}));
-
-const PrintForm = () => {
-  const classes = useStyles();
-
-  const printers = usePrinter();
-  const [defaultPrinter, setDefaultPrinter] = useState();
+const Form = () => {
+  const printContext = usePrinting();
 
   const validationSchema = Yup.object().shape({
     tokenNumber: Yup.number().required('Required'),
@@ -41,7 +31,10 @@ const PrintForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      PrintService.print(defaultPrinter, values);
+      printContext.setPrinterCommands(PrintService.createPrintCommands(values));
+      PrintService.doPrinting(printContext);
+      printContext.reset();
+      formik.resetForm(formik.initialValues);
     }
   });
 
@@ -55,26 +48,12 @@ const PrintForm = () => {
     }
   });
 
-  const [drawer, setDrawer] = React.useState(false);
-  const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setDrawer(open);
-  };
-
   return (
     <div>
       <React.Fragment>
-        <div style={{ padding: 10 }}>
-          <Button variant="outlined" onClick={() => setDrawer(true)}>Setup Printer</Button>
-          <Typography variant="h6" gutterBottom component="div">
-            Default Printer: {defaultPrinter}
-          </Typography>
-        </div>
         <form onSubmit={formik.handleSubmit}>
           <Paper style={{ padding: 14 }}>
-            <Grid container spacing={3}>
+            <Grid container spacing={1}>
               <Grid item xs={12}>
                 <TextField id="tokenNumber" name="tokenNumber" label="Token #" value={formik.values.tokenNumber} onChange={formik.handleChange} fullWidth />
                 {formik.errors.tokenNumber ? formik.errors.tokenNumber : null}
@@ -133,19 +112,9 @@ const PrintForm = () => {
             </Grid>
           </Paper>
         </form>
-        <Drawer
-          classes={{
-            paper: classes.drawerPaper
-          }}
-          anchor='right'
-          open={drawer}
-          onClose={toggleDrawer(false)}
-        >
-          <Printer printers={printers} callback={setDefaultPrinter} />
-        </Drawer>
       </React.Fragment>
     </div>
   );
 }
 
-export default PrintForm;
+export default Form;

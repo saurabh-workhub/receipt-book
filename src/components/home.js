@@ -1,7 +1,8 @@
 import React from "react";
-import { Container, makeStyles } from "@material-ui/core";
+import { Box, Container, makeStyles } from "@material-ui/core";
 import Header from "./header";
-import PrintForm from "./print-form";
+import Form from "./form";
+import SideNav from "./side-nav";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -9,23 +10,24 @@ const useStyles = makeStyles(() => ({
     flex: 1,
     paddingTop: "100px"
   },
-  main: {
-    flex: 1,
-    background: "#f7f5f5",
-    color: "black",
-  },
+  nav: {
+    width: 20
+  }
 }));  
 
 const Home = () => {
-  const { container, main } = useStyles();
+  const { container, nav } = useStyles();
 
   return (
-    <div>
+    <Box sx={{ display: 'flex' }}>
       <Header />
-      <Container className={container}>
-       <main className={main}><PrintForm /></main>
+      <Container component="nav" className={nav}>
+        <SideNav />
       </Container>
-    </div>
+      <Container component="main" className={container}>
+        <Form />
+      </Container>
+    </Box>
   );
 };
 

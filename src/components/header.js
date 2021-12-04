@@ -65,7 +65,7 @@ const Header = () => {
 
   return (
     <header>
-      <AppBar className={header}>
+      <AppBar position="fixed" className={header}>
         <Toolbar className={toolbar}>
           {appLogo}
           <div>{getMenuButtons()}</div>

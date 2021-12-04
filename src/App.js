@@ -6,6 +6,9 @@ import ProtectedRoute from "./auth/protected-route";
 import Account from "./components/account";
 import Logout from "./components/logout";
 import Login from "./components/login";
+import PrinterSetup from "./components/printer-setup";
+import { PrintContextProvider } from './services/print-context';
+import React from "react";
 
 function App() {
   const { isLoading } = useAuth0();
@@ -15,12 +18,15 @@ function App() {
   }
 
   return (
-    <Switch>
-      <Route path="/" exact component={Login} />
-      <ProtectedRoute path="/home" component={Home} />
-      <ProtectedRoute path="/account" component={Account} />
-      <ProtectedRoute path="/logout" component={Logout} />
-    </Switch>
+    <PrintContextProvider>
+      <Switch>
+        <Route path="/" exact component={Login} />
+        <ProtectedRoute path="/home" component={Home} />
+        <ProtectedRoute path="/printer" component={PrinterSetup} />
+        <ProtectedRoute path="/account" component={Account} />
+        <ProtectedRoute path="/logout" component={Logout} />
+      </Switch>
+    </PrintContextProvider>
   )
 }
 
