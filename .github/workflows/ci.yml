@@ -21,7 +21,7 @@ jobs:
       uses: actions/checkout@v2
       with: 
         token: ${{ secrets.PUBLISH }}
-        repository: lal-saurabh/receipt-book-site
+        repository: saurabh-workhub/receipt-book-site
         ref: main 
         path: site
 
