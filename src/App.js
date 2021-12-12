@@ -9,6 +9,7 @@ import Login from "./components/login";
 import PrinterSetup from "./components/printer-setup";
 import { PrintContextProvider } from './services/print-context';
 import React from "react";
+import NavLayout from "./layouts/nav-layout";
 
 function App() {
   const { isLoading } = useAuth0();
@@ -21,10 +22,10 @@ function App() {
     <PrintContextProvider>
       <Switch>
         <Route path="/" exact component={Login} />
-        <ProtectedRoute path="/home" component={Home} />
-        <ProtectedRoute path="/printer" component={PrinterSetup} />
-        <ProtectedRoute path="/account" component={Account} />
-        <ProtectedRoute path="/logout" component={Logout} />
+        <ProtectedRoute path="/home" component={Home} layout={NavLayout} />
+        <ProtectedRoute path="/printer" component={PrinterSetup} layout={NavLayout}/>
+        <ProtectedRoute path="/account" component={Account} layout={NavLayout}/>
+        <ProtectedRoute path="/logout" component={Logout}/>
       </Switch>
     </PrintContextProvider>
   )

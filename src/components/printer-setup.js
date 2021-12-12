@@ -1,27 +1,13 @@
 import React from "react";
-import { Box, Container, Divider, makeStyles, Typography } from "@material-ui/core";
+import { Divider, Typography } from "@material-ui/core";
 import PrintService from "../services/print-service";
 import InstallClientApp from "../printing/install-client-app";
 import WebsiteBlocked from "../printing/website-blocked";
 import Printers from "../printing/printers";
-import Header from "./header";
-import SideNav from "./side-nav";
 import { usePrinting } from "../services/print-context";
 import Loading from "./loading";
 
-const useStyles = makeStyles(() => ({
-  container: {
-    display: "flex",
-    flex: 1,
-    paddingTop: "100px"
-  },
-  nav: {
-    width: 20
-  }
-}));
-
 const PrinterSetup = () => {
-  const { container, nav } = useStyles();
   const [wsStatus, setWsStatus] = React.useState(null);
 
   const printContext = usePrinting();
@@ -54,15 +40,7 @@ const PrinterSetup = () => {
   }
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Header />
-      <Container component="nav" className={nav}>
-        <SideNav />
-      </Container>
-      <Container component="main" className={container}>
-        {renderComponent()}
-      </Container>
-    </Box>
+    renderComponent()
   )
 }
 
